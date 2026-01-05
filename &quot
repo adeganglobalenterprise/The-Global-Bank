@@ -1,0 +1,42 @@
+package com.globalbank.models
+
+import java.util.Date
+
+data class User(
+    val id: String = &quot;&quot;,
+    val firstName: String = &quot;&quot;,
+    val lastName: String = &quot;&quot;,
+    val email: String = &quot;&quot;,
+    val phone: String = &quot;&quot;,
+    val password: String = &quot;&quot;,
+    val accountNumber: String = &quot;&quot;,
+    val balance: Double = 0.0,
+    val cryptoBalance: Double = 0.0,
+    val minedCoins: Double = 0.0,
+    val cryptoAddresses: CryptoAddresses = CryptoAddresses(),
+    val role: String = &quot;customer&quot;,
+    val createdAt: Date = Date(),
+    val lastLogin: Date? = null,
+    val documents: UserDocuments = UserDocuments(),
+    val address: String = &quot;&quot;,
+    val isOnline: Boolean = false
+)
+
+data class CryptoAddresses(
+    val btc: String = &quot;&quot;,
+    val eth: String = &quot;&quot;,
+    val usdt: String = &quot;&quot;
+)
+
+data class UserDocuments(
+    val passport: String? = null,
+    val idCard: String? = null,
+    val addressProof: String? = null
+)
+
+data class AdminUser(
+    val email: String = &quot;adeganglobal@gmail.com&quot;,
+    val password: String = &quot;Admin@GlobalBank2024&quot;,
+    val name: String = &quot;Olawale Abdul-ganiyu Adeshina&quot;,
+    val role: String = &quot;admin&quot;
+)

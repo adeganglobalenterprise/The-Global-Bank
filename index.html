@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Bank International - Desktop Application</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
+</head>
+<body>
+    <!-- Login Page -->
+    <div id="loginPage" class="page active">
+        <div class="login-container">
+            <div class="login-header">
+                <div class="logo">
+                    <i class="fas fa-globe-americas"></i>
+                </div>
+                <h1>Global Bank International</h1>
+                <p class="subtitle">Desktop Banking Application</p>
+            </div>
+            <form id="loginForm" class="login-form">
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <div class="input-group">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="loginEmail" required placeholder="Enter your email">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <div class="input-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="loginPassword" required placeholder="Enter your password">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Sign In</button>
+                <p class="signup-link">Don't have an account? <a href="#" onclick="showPage('registerPage')">Register Now</a></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Registration Page -->
+    <div id="registerPage" class="page">
+        <div class="register-container">
+            <div class="register-header">
+                <div class="logo">
+                    <i class="fas fa-globe-americas"></i>
+                </div>
+                <h1>Create Account</h1>
+                <p class="subtitle">Join Global Bank International</p>
+            </div>
+            <form id="registerForm" class="register-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>First Name</label>
+                        <input type="text" id="regFirstName" required placeholder="First Name">
+                    </div>
+                    <div class="form-group">
+                        <label>Last Name</label>
+                        <input type="text" id="regLastName" required placeholder="Last Name">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" id="regEmail" required placeholder="your@email.com">
+                </div>
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="tel" id="regPhone" required placeholder="+1234567890">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="regPassword" required placeholder="Create password">
+                </div>
+                <div class="form-group">
+                    <label>Confirm Password</label>
+                    <input type="password" id="regConfirmPassword" required placeholder="Confirm password">
+                </div>
+                <button type="submit" class="btn btn-primary">Create Account</button>
+                <p class="login-link">Already have an account? <a href="#" onclick="showPage('loginPage')">Sign In</a></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard -->
+    <div id="adminDashboard" class="page">
+        <nav class="navbar">
+            <div class="nav-brand">
+                <i class="fas fa-globe-americas"></i>
+                <span>Global Bank Admin</span>
+            </div>
+            <div class="nav-menu">
+                <a href="#" class="nav-item active" onclick="showSection('overview')">Overview</a>
+                <a href="#" class="nav-item" onclick="showSection('customers')">Customers</a>
+                <a href="#" class="nav-item" onclick="showSection('transactions')">Transactions</a>
+                <a href="#" class="nav-item" onclick="showSection('manageFunds')">Manage Funds</a>
+                <a href="#" class="nav-item" onclick="showSection('documents')">Documents</a>
+                <a href="#" class="nav-item" onclick="showSection('settings')">Settings</a>
+            </div>
+            <div class="nav-user">
+                <span>Admin: Olawale Abdul-ganiyu</span>
+                <button onclick="logout()" class="btn-logout"><i class="fas fa-sign-out-alt"></i></button>
+            </div>
+        </nav>
+
+        <div class="dashboard-content">
+            <!-- Overview Section -->
+            <div id="overview" class="dashboard-section active">
+                <h2>System Overview</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon blue">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-content">
+                            <p>Total Customers</p>
+                            <h3 id="totalCustomers">0</h3>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon green">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                        <div class="stat-content">
+                            <p>Total Balance</p>
+                            <h3 id="totalBalance">$0.00</h3>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon orange">
+                            <i class="fab fa-bitcoin"></i>
+                        </div>
+                        <div class="stat-content">
+                            <p>Total Crypto</p>
+                            <h3 id="totalCrypto">0.00000000</h3>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon purple">
+                            <i class="fas fa-exchange-alt"></i>
+                        </div>
+                        <div class="stat-content">
+                            <p>Transactions Today</p>
+                            <h3 id="transactionsToday">0</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="live-activity">
+                    <h3>Live Activity</h3>
+                    <div id="liveActivityFeed" class="activity-feed"></div>
+                </div>
+            </div>
+
+            <!-- Customers Section -->
+            <div id="customers" class="dashboard-section">
+                <h2>Customer Management</h2>
+                <div class="customer-actions">
+                    <button class="btn btn-primary" onclick="showCreateCustomerModal()">Create New Customer</button>
+                    <input type="text" placeholder="Search customers..." id="customerSearch" onkeyup="searchCustomers()">
+                </div>
+                <div id="customerList" class="customer-list"></div>
+            </div>
+
+            <!-- Transactions Section -->
+            <div id="transactions" class="dashboard-section">
+                <h2>All Transactions</h2>
+                <div class="transaction-filters">
+                    <select id="transactionFilter" onchange="filterTransactions()">
+                        <option value="all">All Transactions</option>
+                        <option value="credit">Credits Only</option>
+                        <option value="debit">Debits Only</option>
+                        <option value="crypto">Crypto Only</option>
+                    </select>
+                    <input type="date" id="transactionDate" onchange="filterTransactions()">
+                </div>
+                <div id="allTransactions" class="transactions-table"></div>
+            </div>
+
+            <!-- Manage Funds Section -->
+            <div id="manageFunds" class="dashboard-section">
+                <h2>Manage Customer Funds</h2>
+                <div class="fund-actions">
+                    <div class="fund-card">
+                        <h3>Credit Account</h3>
+                        <select id="creditCustomer" onchange="loadCustomerForCredit()">
+                            <option value="">Select Customer</option>
+                        </select>
+                        <input type="number" id="creditAmount" placeholder="Amount" step="0.01">
+                        <select id="creditCurrency">
+                            <option value="USD">USD</option>
+                            <option value="EUR">EUR</option>
+                            <option value="GBP">GBP</option>
+                            <option value="NGN">NGN</option>
+                            <option value="BTC">BTC</option>
+                            <option value="ETH">ETH</option>
+                        </select>
+                        <select id="creditMethod">
+                            <option value="mastercard">MasterCard</option>
+                            <option value="visa">Visa Card</option>
+                            <option value="crypto">Crypto</option>
+                            <option value="transfer">Bank Transfer</option>
+                            <option value="paypal">PayPal</option>
+                            <option value="westernunion">Western Union</option>
+                            <option value="skrill">Skrill</option>
+                        </select>
+                        <button class="btn btn-success" onclick="creditAccount()">Credit Account</button>
+                    </div>
+                    <div class="fund-card">
+                        <h3>Debit Account</h3>
+                        <select id="debitCustomer" onchange="loadCustomerForDebit()">
+                            <option value="">Select Customer</option>
+                        </select>
+                        <input type="number" id="debitAmount" placeholder="Amount" step="0.01">
+                        <select id="debitCurrency">
+                            <option value="USD">USD</option>
+                            <option value="EUR">EUR</option>
+                            <option value="GBP">GBP</option>
+                            <option value="NGN">NGN</option>
+                        </select>
+                        <input type="text" id="debitReason" placeholder="Reason for debit">
+                        <button class="btn btn-danger" onclick="debitAccount()">Debit Account</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Documents Section -->
+            <div id="documents" class="dashboard-section">
+                <h2>Banking Documents & Permits</h2>
+                <div class="documents-grid">
+                    <div class="doc-card">
+                        <i class="fas fa-file-contract"></i>
+                        <h3>Trademark Approval</h3>
+                        <p>Official trademark registration document</p>
+                        <button class="btn btn-small" onclick="viewDocument('trademark')">View Document</button>
+                    </div>
+                    <div class="doc-card">
+                        <i class="fas fa-landmark"></i>
+                        <h3>Banking License</h3>
+                        <p>International banking operating license</p>
+                        <button class="btn btn-small" onclick="viewDocument('license')">View Document</button>
+                    </div>
+                    <div class="doc-card">
+                        <i class="fas fa-globe"></i>
+                        <h3>World Bank Permit</h3>
+                        <p>World bank authorization to operate</p>
+                        <button class="btn btn-small" onclick="viewDocument('worldbank')">View Document</button>
+                    </div>
+                    <div class="doc-card">
+                        <i class="fas fa-balance-scale"></i>
+                        <h3>Financial Law Compliance</h3>
+                        <p>Financial regulatory compliance certificate</p>
+                        <button class="btn btn-small" onclick="viewDocument('compliance')">View Document</button>
+                    </div>
+                    <div class="doc-card">
+                        <i class="fas fa-building"></i>
+                        <h3>Business Registration</h3>
+                        <p>Official business registration document</p>
+                        <button class="btn btn-small" onclick="viewDocument('registration')">View Document</button>
+                    </div>
+                    <div class="doc-card">
+                        <i class="fas fa-file-signature"></i>
+                        <h3>Business Agreement</h3>
+                        <p>Terms and conditions agreement</p>
+                        <button class="btn btn-small" onclick="viewDocument('agreement')">View Document</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings Section -->
+            <div id="settings" class="dashboard-section">
+                <h2>System Settings</h2>
+                <div class="settings-grid">
+                    <div class="setting-card">
+                        <h3>Mining Control</h3>
+                        <p>Control automatic mining system</p>
+                        <label class="switch">
+                            <input type="checkbox" id="miningToggle" onchange="toggleMining()">
+                            <span class="slider"></span>
+                        </label>
+                        <span id="miningStatus">Mining: OFF</span>
+                    </div>
+                    <div class="setting-card">
+                        <h3>Daily Credit</h3>
+                        <p>Automatic daily credit amount</p>
+                        <input type="number" id="dailyCreditAmount" value="10" step="0.01">
+                        <button class="btn btn-small" onclick="updateDailyCredit()">Update</button>
+                    </div>
+                    <div class="setting-card">
+                        <h3>Mining Reward</h3>
+                        <p>Coins per transaction</p>
+                        <input type="number" id="miningReward" value="0.5" step="0.00000001">
+                        <button class="btn btn-small" onclick="updateMiningReward()">Update</button>
+                    </div>
+                    <div class="setting-card">
+                        <h3>Exchange Rates</h3>
+                        <p>Update currency exchange rates</p>
+                        <button class="btn btn-small" onclick="updateExchangeRates()">Update Rates</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Document Viewer Modal -->
+    <div id="documentModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('documentModal')">&times;</span>
+            <div id="documentContent"></div>
+        </div>
+    </div>
+
+    <!-- Create Customer Modal -->
+    <div id="createCustomerModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('createCustomerModal')">&times;</span>
+            <h2>Create New Customer Account</h2>
+            <form id="createCustomerForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>First Name</label>
+                        <input type="text" id="newCustomerFirstName" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Last Name</label>
+                        <input type="text" id="newCustomerLastName" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="newCustomerEmail" required>
+                </div>
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="tel" id="newCustomerPhone" required>
+                </div>
+                <div class="form-group">
+                    <label>Initial Balance (USD)</label>
+                    <input type="number" id="newCustomerBalance" value="0" step="0.01">
+                </div>
+                <button type="submit" class="btn btn-primary">Create Account & Send Welcome Email</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="renderer.js"></script>
+</body>
+</html>
